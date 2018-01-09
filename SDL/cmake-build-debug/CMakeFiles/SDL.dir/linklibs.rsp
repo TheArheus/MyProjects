@@ -1,0 +1,1 @@
+C:/mingw64/lib/libglew32.dll.a -lglu32 -lopengl32 -lmingw32 C:/mingw64/lib/libSDL2main.a C:/mingw64/lib/libSDL2.dll.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

@@ -1,0 +1,5 @@
+"C:\Program Files\JetBrains\CLion 2017.2.2\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Asus\CLionProjects\OpenGL2
+-- GLM_INCLUDE_DIR = C:/mingw64/include
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/Asus/CLionProjects/OpenGL2/cmake-build-debug
