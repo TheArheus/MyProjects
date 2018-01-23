@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Vulkan"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Vulkan">
+				<Option output="C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Vulkan.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/Asus/CLionProjects/Vulkan/Vulkan"/>
+					<Add directory="C:/VulkanSDK/1.0.65.1/Include"/>
+					<Add directory="C:/mingw64/include"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include-fixed"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="C:/mingw64/lib/gcc/../../x86_64-w64-mingw32/include/c++"/>
+					<Add directory="C:/mingw64/lib/gcc/../../x86_64-w64-mingw32/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/mingw64/lib/gcc/../../x86_64-w64-mingw32/include/c++/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 Vulkan"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Vulkan/fast">
+				<Option output="C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Vulkan.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/Asus/CLionProjects/Vulkan/Vulkan"/>
+					<Add directory="C:/VulkanSDK/1.0.65.1/Include"/>
+					<Add directory="C:/mingw64/include"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include-fixed"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="C:/mingw64/lib/gcc/../../x86_64-w64-mingw32/include/c++"/>
+					<Add directory="C:/mingw64/lib/gcc/../../x86_64-w64-mingw32/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/mingw64/lib/gcc/../../x86_64-w64-mingw32/include/c++/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 Vulkan/fast"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Asus/CLionProjects/Vulkan/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Platform.cpp">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Platform.h">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Render.cpp">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Render.h">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Shared.cpp">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Shared.h">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Window.cpp">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Window.h">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Window_wnd32.cpp">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/Window_wnd32.h">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/main.cpp">
+			<Option target="Vulkan"/>
+		</Unit>
+		<Unit filename="C:/Users/Asus/CLionProjects/Vulkan/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
