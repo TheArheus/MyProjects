@@ -55,6 +55,10 @@ const VkPhysicalDeviceProperties & Render::GetVulkanPhysicalDeviceProperties() c
     return gpu_property;
 }
 
+const VkPhysicalDeviceMemoryProperties& Render::GetVulkanPhysicalDeviceMemoryProperty() const {
+    return gpu_memory_properties;
+}
+
 void Render::SetupLayersAndExtensions() {
     instanceEXT.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
     AddRequiredPlatformInstanceExtensions( &instanceEXT );
@@ -75,9 +79,9 @@ bool Render::Run() {
 }
 
 void Render::_InitInstance() {
-    VkApplicationInfo appInfo = {};
+    /*VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.applicationVersion = VK_MAKE_VERSION(1,0,0);
+    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.apiVersion = VK_MAKE_VERSION(1, 0, 3);
     appInfo.pApplicationName = "Vulkan Tutorial";
 
@@ -90,11 +94,28 @@ void Render::_InitInstance() {
     createInfo.ppEnabledExtensionNames = instanceEXT.data();
     //createInfo.pNext = &callbackInfoEXT;
 
+    vkGetPhysicalDeviceMemoryProperties(gpu, &gpu_memory_properties);
+
     auto err = vkCreateInstance(&createInfo, VK_NULL_HANDLE, &instance);
     if(VK_SUCCESS != err){
         std::cerr<<"Vulkan error : Instance create failed"<<std::endl;
         std::exit(-1);
-    }
+    }*/
+    VkApplicationInfo application_info;
+    application_info.sType                    = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    application_info.apiVersion               = VK_MAKE_VERSION(1, 0, 3);
+    application_info.applicationVersion       = VK_MAKE_VERSION(1, 0, 0);
+    application_info.pApplicationName         = "Vulkan Learning";
+
+    VkInstanceCreateInfo instance_info;
+    instance_info.sType                       = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+    instance_info.pApplicationInfo            = &application_info;
+    //instance_info.enabledLayerCount         = instLayers.size();
+    //instance_info.ppEnabledLayerNames       = instLayers.data();
+    //instance_info.enabledExtensionCount     = instExt.size();
+    //instance_info.ppEnabledExtensionNames   = instExt.data();
+
+    vkCreateInstance(&instance_info, VK_NULL_HANDLE, &instance);
 }
 
 void Render::_DeInitInstance() {
@@ -228,9 +249,6 @@ void Render::_SetupDebug() {
                             VK_DEBUG_REPORT_WARNING_BIT_EXT |
                             VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;
 
-    //instanceLayer.push_back("VK_LAYER_LUNARG_standart_validation");
-    //instanceEXT.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
-
     instanceLayer.push_back("VK_LAYER_LUNARG_standard_validation");
     instanceEXT.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
 
@@ -242,8 +260,6 @@ PFN_vkDestroyDebugReportCallbackEXT fvkDestroyDebugReportCallbackEXT = VK_NULL_H
 
 void Render::_InitDebug() {
     fvkCreateDebugReportCallbackEXT = (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugReportCallbackEXT");
-    fvkDestroyDebugReportCallbackEXT = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugReportCallbackEXT");
-    std::cout<<fvkDestroyDebugReportCallbackEXT<<"    "<<fvkCreateDebugReportCallbackEXT;
 
     if(fvkDestroyDebugReportCallbackEXT == VK_NULL_HANDLE || fvkCreateDebugReportCallbackEXT == VK_NULL_HANDLE){
         std::cerr<<"Vulkan ERROR: cannon fetch functions"<<std::endl;
@@ -254,5 +270,6 @@ void Render::_InitDebug() {
 }
 
 void Render::_DeInitDebug() {
+    fvkDestroyDebugReportCallbackEXT = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugReportCallbackEXT");
     fvkDestroyDebugReportCallbackEXT(instance, callbackReport, VK_NULL_HANDLE);
 }

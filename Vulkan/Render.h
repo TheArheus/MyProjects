@@ -28,6 +28,7 @@ public:
     const VkQueue							GetVulkanQueue() const;
     const uint32_t							GetVulkanGraphicsQueueFamilyIndex() const;
     const VkPhysicalDeviceProperties	&	GetVulkanPhysicalDeviceProperties() const;
+    const VkPhysicalDeviceMemoryProperties & GetVulkanPhysicalDeviceMemoryProperty() const;
 private:
     void _InitInstance();
     void _DeInitInstance();
@@ -48,6 +49,7 @@ private:
     VkDebugReportCallbackCreateInfoEXT callbackInfoEXT {};
     VkDebugReportCallbackEXT callbackReport = VK_NULL_HANDLE;
     VkQueue queue = VK_NULL_HANDLE;
+    VkPhysicalDeviceMemoryProperties gpu_memory_properties {};
 
     Window* _window = nullptr;
 
