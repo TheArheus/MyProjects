@@ -1,0 +1,83 @@
+#InfoBlock {
+    background: #f7f7f7;
+    padding-top: 48px;
+}
+
+.container.InfoBlock{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#InfoBlock.jumbotron{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#Info {
+    background: #ededed;
+    padding-top: 48px;
+    height: auto;
+    min-height: 650px;
+}
+
+#Info.jumbotron {
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 15px;
+    height: auto;
+}
+
+#Info.jumbotron>p {
+    padding-left: 25px;
+}
+
+.container.Info{
+    padding-right: 0;
+}
+
+#Block {
+    background: #e5e5e5;
+    margin-right: 15px;
+
+    transition: ease-out 50ms;
+}
+
+#Block:hover {
+    box-shadow: -1px 2px 5px 2px black;
+}
+
+#Block.MainBlock{
+    margin-left: 25px;
+}
+
+#Block a{
+    color: black;
+
+}
+
+#InfoContainer {
+    padding-top: 125px;
+}
+
+@media screen and (max-width: 768px){
+    #InfoContainer {
+        margin-top: 175px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    div#InfoContainer {
+        padding-top: 125px;
+    }
+    #Block {
+        margin-left: 25px;
+    }
+    #Info{
+        padding-bottom: 15px;
+    }
+    #InfoBlock{
+        padding-bottom: 1px;
+    }
+}

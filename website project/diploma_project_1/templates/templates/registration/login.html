@@ -1,0 +1,29 @@
+{% extends "MainPage/index.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="container center-pos-log">
+    <form method="post" class="form-group jumbotron" action="{% url 'login' %}">
+    <p>Вход</p>
+    {% if form.errors %}
+        <p>{% trans 'Wrong username or password. Please, try again later' %}</p>
+    {% endif %}
+    {% csrf_token %}
+    <div>
+        <p>{{ form.username|add_class:"form-control"|attr:'placeholder:Username' }}</p>
+        <p>{{ form.password|add_class:"form-control"|attr:'placeholder:Password' }}</p>
+        {# <p><label><input name="remember_me" type="checkbox">Keep me logged in</label></p> #}
+    </div>
+
+    <div>
+      <input class="btn btn-default" type="submit" value="login" />
+      <input class="btn" type="hidden" name="next" value="{{ next }}" />
+    </div>
+
+     <p style="font-size: 16px"><a href="{% url 'password_reset' %}">{% trans 'Forgot a password?' %}</a></p>
+    </form>
+</div>
+
+{% endblock %}
