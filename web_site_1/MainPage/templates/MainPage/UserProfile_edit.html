@@ -1,0 +1,49 @@
+{% extends 'MainPage/index.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <script>
+        $(document).ready(function(){
+        // Prepare the preview for profile picture
+            $("#wizard-picture").change(function(){
+                readURL(this);
+            });
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <div class="container">
+        <div class="jumbotron Profile col-md-6 col-md-push-3" style="margin-top: 150px">
+            <div class="MainProfInfo">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="picture-container">
+                        <div class="picture">
+                            <img src="{{ user.profile.image.url }}" class="picture-src" id="wizardPicturePreview" title="">
+                            {{ up_form.image|attr:'id:wizard-picture'|add_class:'' }}
+                        </div>
+                    </div>
+                    <button class="btn btn-link" id="update-profile" type="submit">Обновить профиль</button>
+                </form>
+                <div id="ProfInfo">
+                    <p>{{ user.username }}</p>
+                    <form>
+
+                    </form>
+                </div>
+                <div id="res_pswd">
+                    <p><a href="{% url 'change_password' %}">Сменить пароль</a></p>
+                </div>
+                <button class="btn btn-default btn-sm" id="btn-back" onclick="location.href='/'">На главную</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

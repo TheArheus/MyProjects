@@ -1,0 +1,86 @@
+{% extends 'MainPage/index.html' %}
+
+{% block Navbar %}
+<nav class="navbar navbar-default navbar-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Data Miner</a>
+        </div>
+        <ul class="nav navbar-nav navbar-fixed-left">
+            <li href="/"><a href="/">Главная</a></li>
+            <li href="/posts"><a href="/posts">Посты</a></li>
+            <li class="active"  href="/about"><a href="/about">О сайте</a></li>
+        </ul>
+
+        {% if user.is_authenticated %}
+            <div class="nav navbar-right">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form">
+                    <p><img class="center-block" src="{{ prof_user.profile.image.url }}" width="{{ img_w }}" height="{{ img_h }}" style="margin: 0 auto"></p>
+                    <p>Добро пожаловать, {{ prof_user.username }}!</p>
+                    {% if user.is_superuser %}
+                        <p><a href="{% url 'admin:index' %}">Админ панель</a></p>
+                    {% endif %}
+                    <p><a href="/user/{{ user.username }}">Профиль</a></p>
+                    <button class="btn btn-default btn-sm" type="button" onclick="location.href={% url 'logout' %}">Выйти</button>
+                </form>
+            </div>
+        </div>
+        {% elif not user.is_authenticated %}
+        <div class="dropdown navbar-right" id="dropdownAll">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-log-in"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input name="username" class="form-control" id="formInput" type="text" placeholder="Логин">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" class="form-control" id="formInput" type="password" placeholder="Пароль">
+                    </div>
+                    <button class="btn btn-default" type="submit">Войти</button>
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        {% if user.is_anonymous %}
+            <div class="navbar-right">
+                <button class="btn btn-secondary" id="dropdownMenuButton" onclick="location.href={% url 'signup' %}">
+                    <span class="glyphicon glyphicon-home"></span>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+    {% block NavBar %}
+    {% endblock %}
+    <div {# class="parallax-window" data-parallax="scroll" data-image-src="/static/blur-book-stack-books-590493.jpg" #}>
+        <div class="container" id="about">
+            <div class="jumbotron">
+                <span style="font-size:24px">
+                    <p>
+                    <h2>Добрый день.</h2>
+                    <br>
+                    <h3>
+                        <p>Меня зовут Жуков Артём,</p>
+                        <p>и я студент, занимающийся данным блогом, в первую очередь, для своего саморазвития.</p>
+                        <p>Данный сайт создавался для того, чтобы понятно структурировать всю инфоармацию по Дата Майнингу и получить максимум знаний  по той или ной теме</p>
+                        <p>Надеюсь, данный ресурс вам окажется очень полезен.</p>
+                        <br>
+                        <p>Если вы желаете меня как то отблагодарить или отправить мне какое либо сообщение с пожеланиями или доработке данного сайта, я с радостью их приму по своей почте: <strong>hell_boy_rus@list.ru</strong></strong></p>
+                    </h3>
+                    </p>
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

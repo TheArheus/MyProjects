@@ -1,0 +1,120 @@
+{% extends 'MainPage/index.html' %}
+
+{% block Navbar %}
+<nav class="navbar navbar-default navbar-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Data Miner</a>
+        </div>
+        <ul class="nav navbar-nav navbar-fixed-left">
+            <li class="active" href="/"><a href="/">Главная</a></li>
+            <li href="/posts"><a href="/posts">Посты</a></li>
+            <li  href="/about"><a href="/about">О сайте</a></li>
+        </ul>
+
+        {% if user.is_authenticated %}
+            <div class="nav navbar-right">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form">
+                    <p><img class="center-block" src="{{ prof_user.profile.image.url }}" width="{{ img_w }}" height="{{ img_h }}" style="margin: 0 auto"></p>
+                    <p>Добро пожаловать, {{ prof_user.username }}!</p>
+                    {% if user.is_superuser %}
+                        <p><a href="{% url 'admin:index' %}">Админ панель</a></p>
+                    {% endif %}
+                    <p><a href="/user/{{ user.username }}">Профиль</a></p>
+                    <button class="btn btn-default btn-sm" type="button" onclick="location.href={% url 'logout' %}">Выйти</button>
+                </form>
+            </div>
+        </div>
+        {% elif not user.is_authenticated %}
+        <div class="dropdown navbar-right" id="dropdownAll">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-log-in"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input name="username" class="form-control" id="formInput" type="text" placeholder="Логин">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" class="form-control" id="formInput" type="password" placeholder="Пароль">
+                    </div>
+                    <button class="btn btn-default" type="submit">Войти</button>
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        {% if user.is_anonymous %}
+            <div class="navbar-right">
+                <button class="btn btn-secondary" id="dropdownMenuButton" onclick="location.href={% url 'signup' %}">
+                    <span class="glyphicon glyphicon-home"></span>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+{% endblock %}
+
+{% block MainPage %}
+    <div class="container">
+        <div id="MainInfo">
+            <div class="">
+                <div class="cta container rounded text-center text-white">
+                    <h1>Miner Data</h1>
+                    <p class="lead p-3">
+                        Сайт посвящённый интелектуальному анализу данных
+                    </p>
+                </div>
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-12">
+                        <img src="" class="img-fluid">
+                        <span class="text-justify"></span>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-12 desc">
+                        <p>
+                            <h2>Добро пожаловать на сайт Miner Data </h2>
+                            <br>
+                            <h4>
+                                На сайте, посвящённому блогу по теме Интеллектуальный Анализ Данных
+                                вы сможете узнать узнать ифнормацию по той или иной теме,
+                                связанной с интелектуальным анализом данных
+                            </h4>
+                        </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7 col-sm-12 desc">
+                        <p>
+                            <h3>Data mining </h3>
+                            <br>
+                            <h4>
+                                Данное слово имеет собирательное название,
+                                используемое для обозначения совокупности методов обнаружения в данных ранее неизвестных,
+                                нетривиальных, практически полезных и доступных интерпретации знаний,
+                                необходимых для принятия решений в различных сферах человеческой деятельности
+                            </h4>
+                        </p>
+                        </div>
+                            <div class="col-lg-5 col-md-5 col-sm-12">
+                            <img src="" class="img-fluid">
+                            <span class="text-justify"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "MainPage/index.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block Post %}
+    <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+    <link rel="stylesheet" href="{% static 'css/PostStyle.css' %}">
+    <script>
+        AOS.init({
+           once: true
+        });
+    </script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <div class="jumbotron" id="MainBlock">
+        <h2>{{ post.title }}</h2>
+        <button class="btn btn-sm btn-default" id="Back" onclick="location.href='/posts'">К постам</button>
+        <div class="container">
+            <div class="jumbotron col-md-12" id="Info">
+                {{ post.main_text|safe|linebreaks }}
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron col-md-7 col-md-push-2" id="comments" data-aos="fade-up">
+    {% for comment in post.comments.all %}
+        {% if comment.is_parent %}
+        <div class="commentblock">
+            <div class="row">
+                <div class="col-sm-2 col-md-2">
+                    <div class="thumbnail">
+                        <img class="img-responsive user-photo" src="{{ comment.author.profile.image.url }}">
+                    </div>
+                </div>
+
+                <div class="col-sm-9 col-md-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>{{ comment.author }}</strong> {# <span class="text-muted">commented 5 days ago</span> #}
+                        </div>
+                        <div class="panel-body">
+                            {{ comment.text }}
+                        </div>
+                        <div class="panel-footer" id="answers_{{ comment.id }}">
+                            {% for child in comment.children %}
+                                <div class="answerblock">
+                                    <div class="row col-md-push-1">
+                                        <div class="col-sm-2 col-md-2">
+                                            <div class="thumbnail">
+                                                <img class="img-responsive user-photo" src="{{ child.author.profile.image.url }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-md-10">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <strong>{{ child.author }}</strong> {# <span class="text-muted">commented 5 days ago</span> #}
+                                                </div>
+                                                <div class="panel-body">
+                                                    {{ child.text }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <a data-toggle="collapse" data-target="#collapse_{{ comment.id }}" onclick="hide_this(this)">Ответить</a>
+                            <div class="collapse" id="collapse_{{ comment.id }}">
+                                <form method="post" id="answer_addform_{{ comment.id }}">
+                                    <div class="form-group">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                        {{ comment_form.text|add_class:'form-control'|attr:'cols:'|attr:'rows:' }}
+                                        <input type="reset" class="btn btn-sm btn-block AddAnswer" onclick="sendreqfor_answer(this)" value="Ответить"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% empty %}
+        <div id="nocomment">
+            <p>
+            К этой новости не добавлено ни одного комментария.
+            Будь первым!
+            </p>
+        </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <form method="post" id="comment_addform">
+            <div class="form-group">
+                {% csrf_token %}
+                {{ comment_form.text|add_class:'form-control'|attr:'cols:'|attr:'rows:' }}
+                <input type="reset" id="AddComment" class="btn btn-sm btn-block" value="Добавить коментарий"/>
+            </div>
+        </form>
+    {% endif %}
+    </div>
+    <script>
+        var comment = document.querySelector("#AddComment");
+        var answers = document.querySelectorAll(".AddAnswer");
+        var req = new XMLHttpRequest();
+
+        if(comment){
+            comment.addEventListener("click", function () {
+                var csrftok = '{{ csrf_token }}';
+                req.open('POST', '{{ request.path }}');
+                CommentBlock = {
+                    "text": comment.previousElementSibling.value,
+                    //'csrfmiddlewaretoken': csrftok,
+                };
+                req.setRequestHeader('X-CSRFToken', csrftok);
+                req.setRequestHeader("Content-Type", "application/json");
+                req.onreadystatechange = function () {
+                    if(req.readyState == 4) {
+                        let text = document.createElement('div');
+                        text.innerHTML = req.responseText;
+                        let comment_blocks = text.querySelector("#comments").getElementsByClassName("commentblock");
+                        let new_block = comment_blocks[comment_blocks.length - 1];
+                        new_block.classList.add("appear");
+                        document.querySelector("#comment_addform").before(new_block);
+                        new_block.classList.remove("appear");
+                        document.querySelector("#nocomment").style.display = "none";
+                    };
+                };
+                req.send(JSON.stringify(CommentBlock));
+            });
+        }
+
+        function sendreqfor_answer (answer) {
+                var csrftok = '{{ csrf_token }}';
+                req.open('POST', '{{ request.path }}');
+                CommentBlock = {
+                    "text": answer.previousElementSibling.value,
+                    "parent_id": answer.previousElementSibling.previousElementSibling.value,
+                    //'csrftoken': csrftok,
+                };
+
+                req.onreadystatechange = function () {
+                    if(req.readyState == 4) {
+                        let text = document.createElement('div');
+                        text.innerHTML = req.responseText;
+                        let id = "#answers_" + answer.previousElementSibling.previousElementSibling.value.toString();
+                        let answer_form_id = "#answer_addform_" + answer.previousElementSibling.previousElementSibling.value.toString();
+                        let comment_blocks = text.querySelector(id).getElementsByClassName("answerblock");
+                        let new_block = comment_blocks[comment_blocks.length - 1];
+                        new_block.classList.add("appear");
+                        document.querySelector(answer_form_id).before(new_block);
+                        new_block.classList.remove("appear");
+                    }
+                };
+                req.setRequestHeader('X-CSRFToken', csrftok);
+                req.setRequestHeader("Content-Type", "application/json");
+                req.send(JSON.stringify(CommentBlock));
+            }
+
+            function hide_this(el) {
+                el.style.display = "none";
+            }
+    </script>
+{% endblock %}

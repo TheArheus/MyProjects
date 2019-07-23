@@ -1,0 +1,101 @@
+{% extends "MainPage/index.html" %}
+{% load widget_tweaks %}
+
+{% block Navbar %}
+<nav class="navbar navbar-default navbar-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Data Miner</a>
+        </div>
+        <ul class="nav navbar-nav navbar-fixed-left">
+            <li href="/"><a href="/">Главная</a></li>
+            <li class="active" href="/posts"><a href="/posts">Посты</a></li>
+            <li  href="/about"><a href="/about">О сайте</a></li>
+        </ul>
+
+        {% if user.is_authenticated %}
+            <div class="nav navbar-right">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form">
+                    <p><img src="{{ prof_user.profile.image.url }}" width="{{ img_w }}" height="{{ img_h }}" style="margin-right: auto;margin-right: auto"></p>
+                    <p>Добро пожаловать, {{ prof_user.username }}!</p>
+                    {% if user.is_superuser %}
+                        <p><a href="{% url 'admin:index' %}">Админ панель</a></p>
+                    {% endif %}
+                    <p><a href="/user/{{ user.username }}">Профиль</a></p>
+                    <button class="btn btn-default btn-sm" type="button" onclick="location.href={% url 'logout' %}">Выйти</button>
+                </form>
+            </div>
+        </div>
+        {% elif not user.is_authenticated %}
+        <div class="dropdown navbar-right" id="dropdownAll">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-log-in"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input name="username" class="form-control" id="formInput" type="text" placeholder="Login">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" class="form-control" id="formInput" type="password" placeholder="Password">
+                    </div>
+                    <button class="btn btn-default" type="submit">Войти</button>
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        {% if user.is_anonymous %}
+            <div class="navbar-right">
+                <button class="btn btn-secondary" id="dropdownMenuButton" onclick="location.href={% url 'signup' %}">
+                    <span class="glyphicon glyphicon-home"></span>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+    {% load static %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script>
+    $('#' + id).ckeditor(settings)
+    </script>
+
+
+    <div>
+        <div class="container" id="PostCreate">
+            <div class="jumbotron col-md-10 col-md-push-1">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="form-group form-inline">
+                            <p>Заголовок</p>
+                            <p>{{ form.title }}</p>
+                        </div>
+                        <div class="form-group col">
+                            <p>Текст в выборе постов</p>
+                            <p>{{ form.title_text|safe }}</p>
+                        </div>
+                        <div class="form-group col">
+                            <p>Главный текст</p>
+                            <p>{{ form.main_text|safe }}</p>
+                        </div>
+                        <input class="btn" type="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.getElementById('id_title').onchange = function () {
+        document.getElementById('slug').value = document.getElementById('title').value;
+    };
+    </script>
+{% endblock %}

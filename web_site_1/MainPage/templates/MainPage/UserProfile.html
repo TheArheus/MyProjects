@@ -1,0 +1,31 @@
+{% extends 'MainPage/index.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron Profile col-md-6 col-md-push-3" style="margin-top: 150px">
+            <div class="MainProfInfo">
+                    {% csrf_token %}
+                    <div class="picture-container">
+                        <div class="picture">
+                            <img src="{{ user.profile.image.url }}" class="picture-src" id="wizardPicturePreview" title="">
+                        </div>
+                    </div>
+                    {% if request.user.is_authenticated and request.user.username == user.username %}
+                        <a class="btn btn-link" id="update-profile" href="{% url 'user_profile_edit' username=user.username %}">Изменить профиль</a>
+                    {% endif %}
+                <div id="ProfInfo">
+                    <p>{{ user.username }}</p>
+                    {% if user.is_active %}
+                        <p id="online">Онлайн</p>
+                    {% else %}
+                        <p>{{ user.last_login }}</p>
+                    {% endif %}
+                </div>
+                <div id="btn-back">
+                    <button class="btn btn-default btn-sm" onclick="location.href='/'">На главную</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

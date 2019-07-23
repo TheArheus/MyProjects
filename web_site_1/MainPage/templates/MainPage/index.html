@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Miner</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script src="{% static 'js/parallax.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.5.1/js/fileinput.min.js"></script>
+
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+
+
+    <link rel="stylesheet" href="{% static 'css/WebPage_own.css' %}">
+
+    <script>
+        //$(window).scroll(function () {
+        //    $("body").css("background-position","50% " + ($(this).scrollTop() / 4) + "px");
+        //})
+    </script>
+</head>
+<body>
+{% block Navbar %}
+{% endblock %}
+{# <div class="parallax-window" data-parallax="scroll" data-image-src="/static/blur-book-stack-books-590493.jpg" data-z-index="1"></div> #}
+{% block Post %}
+{% endblock %}
+{% block MainPage %}
+{% endblock %}
+{% block login %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+</body>
+</html>

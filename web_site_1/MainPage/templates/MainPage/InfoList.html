@@ -1,0 +1,98 @@
+{% extends "MainPage/index.html" %}
+{% load static %}
+
+{% block Navbar %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+
+<nav class="navbar navbar-default navbar-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Data Miner</a>
+        </div>
+        <ul class="nav navbar-nav navbar-fixed-left">
+            <li href="/"><a href="/">Главная</a></li>
+            <li class="active" href="/posts"><a href="/posts">Посты</a></li>
+            <li  href="/about"><a href="/about">О сайте</a></li>
+        </ul>
+
+        {% if user.is_authenticated %}
+            <div class="nav navbar-right">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form">
+                    <p><img class="center-block" src="{{ user.profile.image.url }}" width="{{ img_w }}" height="{{ img_h }}" style="margin: 0 auto"></p>
+                    <p>Добро пожаловать, {{ user.username }}!</p>
+                    {% if user.is_superuser %}
+                        <p><a href="{% url 'admin:index' %}">Админ панель</a></p>
+                        <p><a href="{% url 'news_add' %}">Добавить новость</a></p>
+                    {% endif %}
+                    <p><a href="/user/{{ user.username }}">Профиль</a></p>
+                    <button class="btn btn-default btn-sm" type="button" onclick="location.href={% url 'logout' %}">Выйти</button>
+                </form>
+            </div>
+        </div>
+        {% elif not user.is_authenticated %}
+        <div class="dropdown navbar-right" id="dropdownAll">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-log-in"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <form class="dropdown-item navbar-form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input name="username" class="form-control" id="formInput" type="text" placeholder="Логин">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" class="form-control" id="formInput" type="password" placeholder="Пароль">
+                    </div>
+                    <button class="btn btn-default" type="submit">Войти</button>
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        {% if user.is_anonymous %}
+            <div class="navbar-right">
+                <button class="btn btn-secondary" id="dropdownMenuButton" onclick="location.href={% url 'signup' %}">
+                    <span class="glyphicon glyphicon-home"></span>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div id="InfoContainer">
+            <div class="jumbotron" id="InfoBlock">
+                <div class="jumbotron" id="Info">
+                    <p><span style="font-size:26px"><strong>Главные понятия</strong></span></p>
+                    <br>
+                    <p>
+                        <div class="jumbotron col-md-5 MainBlock" id="Block">
+                            <p>{{ maininfo.title }}</p>
+                            <p><img src="http://www.beroc.by/webroot/delivery/images/DataMining.jpg" width="100%"></p>
+                            <p><span style="font-size: 14px">Понятия, необходимые для понимания Data Mining</span></p>
+                            <br>
+                            <button class="btn btn-info" onclick="location.href='{{ maininfo.slug }}'">Читать далее</button>
+                        </div>
+                    </p>
+                    <div style="display: inline">
+                        {% for info in info1 %}
+                            <p>
+                                <div class="jumbotron col-md-3" id="Block">
+                                    <p>{{ info.title }}</p>
+                            <br>
+                                    <button class="btn btn-info" onclick="location.href='{{ info.slug }}'">Читать далее</button>
+                                </div>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
