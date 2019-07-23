@@ -1,0 +1,32 @@
+#MainBlock {
+    background: #f7f7f7;
+    padding-right: 65px;
+    padding-left: 65px;
+}
+
+#Info {
+    background: #ededed;
+}
+
+#ImageBlock {
+    background: #e5e5e5;
+    border: 1px solid black;
+}
+
+.appear {
+    -webkit-animation: appear 0.4s ease-in;
+    -o-animation: appear 0.4s ease-in;
+    animation: appear 0.4s ease-in;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
